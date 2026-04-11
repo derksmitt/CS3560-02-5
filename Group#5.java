@@ -8,9 +8,76 @@ public class ATM {
   private Card currentCard;
   private Account currentAccount;
   private boolean isAuthenticated;
-
+  
+// Security Constants
+  private static final int MAX_ATTEMPTS = 3;
   /**
   * Starts the ATM machine
+  */
+  /**
+  * Starts the ATM machine session.
+  * This simulates the loop where a user inserts a card and tries their PIN.
+  */
+  public void start(Card insertedCard) {
+    this.currentCard = insertedCard;
+    int attempts = 0;
+    boolean sessionActive = true;
+
+    System.out.println("Welcome to the ATM. Please enter your PIN.");
+
+    while (attempts < MAX_ATTEMPTS && !isAuthenticated) {
+      // Simulating getting input (e.g., 1234)
+      int enteredPin = 1234;
+      isAuthenticated = authenticateUser(currentCard, enteredPin);
+
+      if (isAuthenticated) {
+        showMenu();
+      } else {
+        attempts++;
+        int remaining = MAX_ATTEMPTS - attempts;
+        if (remaining > 0) {
+          System.out.println("Incorrect PIN. You have " + remaining + " attempts remaining.");
+        }
+      }
+    }
+
+
+    // Response shown when the loop exits due to maximum attempts being reached
+    if (!isAuthenticated && attempts >= MAX_ATTEMPTS) {
+      terminateSessionDueToLockout();
+    }
+  }
+
+  /**
+  * Displays the lockout message and resets the system state.
+  */
+  private void terminateSessionDueToLockout() {
+    System.out.println("---------------------------------------");
+    System.out.println("SECURITY ALERT: Maximum attempts reached.");
+    System.out.println("Your card has been locked for security purposes.");
+    System.out.println("Please contact your bank or visit a branch.");
+    System.out.println("Session Terminated.");
+    System.out.println("---------------------------------------");
+    logout();
+  }
+
+  public boolean authenticateUser(Card card, int pin) {
+    // In a real scenario, this calls bank.authenticate()
+    currentAccount = bank.authenticate(card, pin);
+    return currentAccount != null;
+  }
+
+  public void showMenu() {
+    System.out.println("Login Successful. Displaying Menu...");
+  }
+
+  public void logout() {
+    this.currentCard = null;
+    this.currentAccount = null;
+    this.isAuthenticated = false;
+  }
+}    
+  * This simulates the loop where a user inserts a card and tries their PIN.
   */
   public void start() {
   // TODO: Initialize ATM interface
@@ -24,6 +91,8 @@ public class ATM {
   public boolean authenticateUser(Card card, int pin) {
     return false;
   }
+
+    
   /**
   * Displays available options to the user
   */
