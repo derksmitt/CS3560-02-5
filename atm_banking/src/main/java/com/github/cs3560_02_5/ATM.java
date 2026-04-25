@@ -42,11 +42,10 @@ public class ATM extends Application{
         window.show();
     }
 
-    /**
-     * Login window displayed to the user
-     * @return VBox
-     */
-    public BorderPane login() { 
+    /**  
+     * Banner on scenes
+    */
+    public HBox banner() {
         // Create HBox
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);
@@ -58,7 +57,13 @@ public class ATM extends Application{
         bankNameText.setFont(Font.font("Arial Narrow", FontWeight.THIN, 60));
         bankNameText.setFill(Color.WHITE);
         hBox.getChildren().add(bankNameText);
-
+        return hBox;
+    }
+    /**
+     * Login window displayed to user
+     * @return VBox
+     */
+    public BorderPane login() { 
         // Create VBox with centering
         VBox layout = new VBox();
         layout.setAlignment(Pos.CENTER);
@@ -67,12 +72,12 @@ public class ATM extends Application{
         // Set size
         layout.setMaxWidth(600);
         layout.setMaxHeight(300);
-        // Create padding and spacing for objects'
+        // Create padding and spacing for objects
         layout.setPadding(new Insets(90));
         layout.setSpacing(20);
 
         // Create new text on top
-        Text name = new Text("Login");
+        Text name = new Text("LOGIN");
         // Set style
         name.setFont(Font.font("Arial Narrow", FontWeight.THIN, 30));
         name.setFill(Color.rgb(42, 60, 77));
@@ -110,7 +115,7 @@ public class ATM extends Application{
         submit.setOnAction(event -> {
                     // Find account linked to cardNumber and pin
                     Account account = authenticateUser(cardNum.getText(), Integer.parseInt(pin.getText()));
-                    // Check if a valid account is found
+                    // Check if valid account is found
                     if (account != null) {
                         // Switch scenes and display alert
                         AlertBox.display("Login Successful", "Welcome " + account.getName());
@@ -125,7 +130,7 @@ public class ATM extends Application{
 
         // Creating a BorderPane container
         BorderPane border = new BorderPane();
-        border.setTop(hBox);
+        border.setTop(banner());
         border.setCenter(layout);
         return border;
     }
@@ -144,16 +149,62 @@ public class ATM extends Application{
      * @param account Account belonging to user
      */
     public void showMenu(Account account) {
-        // TODO: Display options (withdraw, deposit, balance, etc.)
-        VBox layout = new VBox(10);
-        layout.setAlignment(Pos.CENTER);
+        // Create VBox with centering
+        VBox pane = new VBox(); 
+        pane.setAlignment(Pos.CENTER);
 
-        Label welcome = new Label(account.getName());
+        // Set style
+        pane.setStyle("-fx-background-color: #d9d9d9");
+        // Set size
+        pane.setMaxWidth(800);
+        pane.setMaxHeight(500);
+        pane.setSpacing(20);
 
-        layout.getChildren().add(welcome);
+        // Create new text on top
+        Text name = new Text("PLEASE SELECT A SERVICE");
+        // Set style
+        name.setFont(Font.font("Arial Narrow", FontWeight.THIN, 30));
+        name.setFill(Color.rgb(42, 60, 77));
+        
+        // Create GridPane
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setVgap(50);
+        grid.setHgap(50);
 
-        Scene dashboardScene = new Scene(layout, width, height);
-        window.setScene(dashboardScene);
+        // Defining the withdraw button
+        Button withdrawButton = new Button("WITHDRAW");
+        withdrawButton.setMaxWidth(100);
+        withdrawButton.setStyle("-fx-background-color: white; -fx-text-fill: #2a3c4d");
+        grid.add(withdrawButton, 0, 0);
+
+        // Defining the deposit button
+        Button depositButton = new Button("DEPOSIT");
+        depositButton.setMaxWidth(100);
+        depositButton.setStyle("-fx-background-color: white; -fx-text-fill: #2a3c4d");
+        grid.add(depositButton, 1, 0);
+
+        // Defining the balance button
+        Button balanceButton = new Button("BALANCE");
+        balanceButton.setMaxWidth(100);
+        balanceButton.setStyle("-fx-background-color: white; -fx-text-fill: #2a3c4d");
+        grid.add(balanceButton, 0, 1);
+
+        // Defining the exit button
+        Button exitButton = new Button("BALANCE");
+        exitButton.setMaxWidth(100);
+        exitButton.setStyle("-fx-background-color: #2a3c4d; -fx-text-fill: white");
+        grid.add(exitButton, 1, 1);
+
+        pane.getChildren().addAll(name, grid);
+
+        // Creating a BorderPane container
+        BorderPane border = new BorderPane();
+        border.setTop(banner());
+        border.setCenter(pane);
+
+        Scene menuScene = new Scene(border, width, height);
+        window.setScene(menuScene);
     }
     /**
      * Logs out the current user
