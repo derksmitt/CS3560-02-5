@@ -203,7 +203,7 @@ public class ATM extends Application{
         exitButton.setStyle("-fx-background-color: #2a3c4d; -fx-text-fill: white");
         grid.add(exitButton, 1, 1);
         exitButton.setOnAction(event -> {
-            AlertBox.display("Signing Out", "Goodbye!", 5);
+            AlertBox.display("Signing Out", "Goodbye!", 3);
             logout();
         });
 
@@ -223,5 +223,8 @@ public class ATM extends Application{
      */
     public void logout() {
         // TODO: Reset session
+        Scene scene = new Scene(login(), width, height);
+        window.setScene(scene);
+        window.show();
     }
 }

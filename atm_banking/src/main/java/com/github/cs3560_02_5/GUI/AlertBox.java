@@ -69,11 +69,12 @@ public class AlertBox {
         // Display window
         Scene scene = new Scene(layout);
         window.setScene(scene);
-        window.show();
 
         PauseTransition delay = new PauseTransition(Duration.seconds(seconds));
         delay.setOnFinished(event -> window.close());
         delay.play();
+
+        window.showAndWait();
     }
         
 
