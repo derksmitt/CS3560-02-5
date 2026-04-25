@@ -198,7 +198,7 @@ public class ATM extends Application{
         grid.add(balanceButton, 0, 1);
 
         // Defining the exit button
-        Button exitButton = new Button("Logout");
+        Button exitButton = new Button("EXIT");
         exitButton.setMaxWidth(100);
         exitButton.setStyle("-fx-background-color: #2a3c4d; -fx-text-fill: white");
         grid.add(exitButton, 1, 1);
