@@ -225,6 +225,5 @@ public class ATM extends Application{
         // TODO: Reset session
         Scene scene = new Scene(login(), width, height);
         window.setScene(scene);
-        window.show();
     }
 }

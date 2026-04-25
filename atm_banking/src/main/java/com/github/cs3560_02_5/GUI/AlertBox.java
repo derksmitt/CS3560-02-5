@@ -44,6 +44,9 @@ public class AlertBox {
         window.showAndWait();
     }
 
+    /**
+    * Creates a timed pop up window to handle alerts
+    */
     public static void display(String title, String message, int seconds) {
                 // Create new stage
         Stage window = new Stage();
