@@ -1,4 +1,5 @@
 /**
+ * test after removing folders/files that should not be tracked
 * Main class representing the ATM machine
 * Handles user interaction and coordinates system operations
 */
