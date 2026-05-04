@@ -76,8 +76,8 @@ public class ATM {
     this.currentAccount = null;
     this.isAuthenticated = false;
   }
-}    
-  * This simulates the loop where a user inserts a card and tries their PIN.
+
+  /* This simulates the loop where a user inserts a card and tries their PIN.
   */
   public void start() {
   // TODO: Initialize ATM interface
@@ -87,24 +87,27 @@ public class ATM {
   * @param card Card inserted by user
   * @param pin Entered PIN
   * @return boolean indicating success/failure
-  */
+ 
   public boolean authenticateUser(Card card, int pin) {
     return false;
   }
+     */
 
     
   /**
   * Displays available options to the user
-  */
+  
   public void showMenu() {
     // TODO: Display options (withdraw, deposit, balance, etc.)
   }
+    */
   /**
   * Logs out the current user
-  */
+  
   public void logout() {
     // TODO: Reset session
   }
+    */
 }
 
 /**
