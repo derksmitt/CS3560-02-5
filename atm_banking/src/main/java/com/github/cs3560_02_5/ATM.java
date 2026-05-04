@@ -243,6 +243,7 @@ public class ATM extends Application{
      * Displays withdraw screen
      * @param account Account belonging to user
      */
+    //NOTE: MONEY SHOULD BE UPDATED AFTER EACH WITHDRAW. NOT CURRENTLY IMPLEMENTED
     public void showWithdraw(Account account) {
         // Create VBox with centering
         VBox pane = new VBox(); 

@@ -26,7 +26,7 @@ public class Bank {
             /*
             Update connection string with your credentials
             */
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/cs3560?user=root&password=Ag0raPHOb13^");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/cs3560?user=root&password=PASSWORD");
             // Call function to create cards
             acc = createCards(conn);
         } catch (Exception ex) {
