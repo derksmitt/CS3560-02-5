@@ -193,6 +193,9 @@ public class ATM extends Application{
         withdrawButton.setMaxWidth(100);
         withdrawButton.setStyle("-fx-background-color: white; -fx-text-fill: #2a3c4d");
         grid.add(withdrawButton, 0, 0);
+        withdrawButton.setOnAction(event -> {
+            showWithdraw(account);
+        });
 
         // Defining the deposit button
         Button depositButton = new Button("DEPOSIT");
@@ -234,5 +237,101 @@ public class ATM extends Application{
         // TODO: Reset session
         Scene scene = new Scene(login(), width, height);
         window.setScene(scene);
+    }
+
+    /**
+     * Displays withdraw screen
+     * @param account Account belonging to user
+     */
+    public void showWithdraw(Account account) {
+        // Create VBox with centering
+        VBox pane = new VBox(); 
+        pane.setAlignment(Pos.CENTER);
+
+        // Set style
+        pane.setStyle("-fx-background-color: #d9d9d9");
+        // Set size
+        pane.setMaxWidth(800);
+        pane.setMaxHeight(500);
+        pane.setSpacing(20);
+
+        // Create new text on top
+        Text name = new Text("PLEASE SELECT A VALUE TO WITHDRAW");
+        // Set style
+        name.setFont(Font.font("Arial Narrow", FontWeight.THIN, 30));
+        name.setFill(Color.rgb(42, 60, 77));
+        
+        // Create GridPane
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setVgap(50);
+        grid.setHgap(50);
+
+        //display the balance of the account
+        Text balanceText = new Text("Balance: $" + String.format("%.2f", account.getBalance()));
+        balanceText.setFont(Font.font("Arial Narrow", FontWeight.THIN, 24));
+        balanceText.setFill(Color.rgb(42, 60, 77));
+        HBox balanceBox = new HBox(balanceText);
+        balanceBox.setAlignment(Pos.CENTER);
+        balanceBox.setPadding(new Insets(15));
+        balanceBox.setStyle("-fx-background-color: white; -fx-border-color: #2a3c4d; -fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;");
+
+        // Defining the 100 button
+        Button hundredButton = new Button("$100");
+        hundredButton.setMaxWidth(100);
+        hundredButton.setStyle("-fx-background-color: white; -fx-text-fill: #2a3c4d");
+        grid.add(hundredButton, 0, 0);
+        hundredButton.setOnAction(event -> {
+            if (account.withdraw(100)) {
+                AlertBox.display("Success", "Please take your cash.");
+            } else {
+                AlertBox.display("Error", "Insufficient Funds");
+            }
+        });
+
+        // Defining the deposit button
+        Button fiftyButton = new Button("$50");
+        fiftyButton.setMaxWidth(100);
+        fiftyButton.setStyle("-fx-background-color: white; -fx-text-fill: #2a3c4d");
+        grid.add(fiftyButton, 1, 0);
+        fiftyButton.setOnAction(event -> {
+            if(account.withdraw(50)) {
+                AlertBox.display("Success", "Please take your cash.");
+            } else {
+                AlertBox.display("Error", "Insufficient Funds");
+            }
+        });
+
+        // Defining the balance button
+        Button twentyfiveButton = new Button("$25");
+        twentyfiveButton.setMaxWidth(100);
+        twentyfiveButton.setStyle("-fx-background-color: white; -fx-text-fill: #2a3c4d");
+        grid.add(twentyfiveButton, 0, 1);
+        twentyfiveButton.setOnAction(event -> {
+            if(account.withdraw(25)) {
+                AlertBox.display("Success", "Please take your cash.");
+            } else {
+                AlertBox.display("Error", "Insufficient Funds");
+            }
+        });
+
+        // Defining the exit button
+        Button exitButton = new Button("EXIT");
+        exitButton.setMaxWidth(100);
+        exitButton.setStyle("-fx-background-color: #2a3c4d; -fx-text-fill: white");
+        grid.add(exitButton, 1, 1);
+        exitButton.setOnAction(event -> {
+            showMenu(account);
+        });
+
+                pane.getChildren().addAll(name, balanceBox, grid);
+
+        // Creating a BorderPane container
+        BorderPane border = new BorderPane();
+        border.setTop(banner());
+        border.setCenter(pane);
+
+        Scene withdrawScene = new Scene(border, width, height);
+        window.setScene(withdrawScene);
     }
 }

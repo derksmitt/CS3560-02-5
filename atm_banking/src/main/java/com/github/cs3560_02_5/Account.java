@@ -1,5 +1,8 @@
 package com.github.cs3560_02_5;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,11 +79,26 @@ public class Account {
      * @return boolean indicating success/failure
      */
     public boolean withdraw(double amount) {
+        Connection conn = null;
+        try { 
+        conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/cs3560?user=root&password=Ag0raPHOb13^");
+        } catch (Exception ex) {
+            // Error in connecting
+            System.err.println("Failure to connect!\n" + ex);
+        }
+
+        // Cannot withdraw if already in negative balance
         if (balance < 0) {
             return false;
         }
         balance -= amount;
         String query = "UPDATE debitcard SET balance =" + balance + " WHERE accNum = " + accountNumber;
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return false;
     }
