@@ -68,7 +68,10 @@ public class Account {
      * @return updated balance
      */
     public double deposit(double amount) {
-        return 0.0;
+        if (amount > 0) {
+            balance += amount;
+        }
+        return balance;
     }
     /**
      * Withdraws money from account
@@ -76,6 +79,10 @@ public class Account {
      * @return boolean indicating success/failure
      */
     public boolean withdraw(double amount) {
+        if (amount > 0 && balance >= amount) {
+            balance -= amount;
+            return true;
+        }
         return false;
     }
     /**

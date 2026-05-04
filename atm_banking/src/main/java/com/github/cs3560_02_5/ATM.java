@@ -169,8 +169,8 @@ public class ATM extends Application{
         // Create GridPane
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
-        grid.setVgap(50);
-        grid.setHgap(50);
+        grid.setVgap(40);
+        grid.setHgap(40);
 
         // Defining the withdraw button
         Button withdrawButton = new Button("WITHDRAW");
@@ -194,7 +194,51 @@ public class ATM extends Application{
         Button exitButton = new Button("EXIT");
         exitButton.setMaxWidth(100);
         exitButton.setStyle("-fx-background-color: #2a3c4d; -fx-text-fill: white");
-        grid.add(exitButton, 1, 1);
+        grid.add(exitButton, 0, 2);
+
+        //defining the transfer button
+        Button transferButton = new Button("TRANSFER");
+        transferButton.setMaxWidth(100);
+        transferButton.setStyle("-fx-background-color: white; -fx-text-fill: #2a3c4d");
+        grid.add(transferButton, 1, 1);
+
+        //transfer logic
+        transferButton.setOnAction(event -> {
+            TextInputDialog accDialog = new TextInputDialog();
+            accDialog.setHeaderText("Enter destination account number:");
+            String toAccNum = accDialog.showAndWait().orElse("");
+
+            Account toAccount = bank.findAccountByNumber(toAccNum);
+
+            if (toAccount == null) {
+                AlertBox.display("Error", "Account not found");
+                return;
+            }
+
+            TextInputDialog amountDialog = new TextInputDialog();
+            amountDialog.setHeaderText("Enter amount to transfer:");
+            String input = amountDialog.showAndWait().orElse("0");
+
+            double amount;
+
+            try {
+                amount = Double.parseDouble(input);
+            } catch (Exception e) {
+                AlertBox.display("Error", "Invalid amount");
+                return;
+            }
+
+            TransferTransaction transfer =
+                    new TransferTransaction(account, toAccount, amount);
+
+            boolean success = transfer.execute();
+
+            if (success) {
+                AlertBox.display("Success", "Transfer completed!");
+            } else {
+                AlertBox.display("Failed", "Transfer failed (check balance or input).");
+            }
+        });
 
         pane.getChildren().addAll(name, grid);
 

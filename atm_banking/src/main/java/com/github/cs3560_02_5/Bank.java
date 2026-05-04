@@ -27,7 +27,7 @@ public class Bank {
             /*
             Update connection string with your credentials
             */
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/YOURDATABASE?user=root&password=YOURPASSWORD");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/bank?user=root&password=root");
             // Call function to create cards
             acc = createCards(conn);
         } catch (Exception ex) {
@@ -110,4 +110,13 @@ public class Bank {
         }
         return null;
     }
+
+    public Account findAccountByNumber(String accNum) {
+    for (Account a : acc) {
+        if (a.getAccNum().equals(accNum)) {
+            return a;
+        }
+    }
+    return null;
+}
 }
