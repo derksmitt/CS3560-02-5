@@ -179,6 +179,15 @@ public class ATM extends Application{
         grid.setVgap(50);
         grid.setHgap(50);
 
+        //display the balance of the account
+        Text balanceText = new Text("Balance: $" + String.format("%.2f", account.getBalance()));
+        balanceText.setFont(Font.font("Arial Narrow", FontWeight.THIN, 24));
+        balanceText.setFill(Color.rgb(42, 60, 77));
+        HBox balanceBox = new HBox(balanceText);
+        balanceBox.setAlignment(Pos.CENTER);
+        balanceBox.setPadding(new Insets(15));
+        balanceBox.setStyle("-fx-background-color: white; -fx-border-color: #2a3c4d; -fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;");
+
         // Defining the withdraw button
         Button withdrawButton = new Button("WITHDRAW");
         withdrawButton.setMaxWidth(100);
@@ -192,10 +201,10 @@ public class ATM extends Application{
         grid.add(depositButton, 1, 0);
 
         // Defining the balance button
-        Button balanceButton = new Button("BALANCE");
-        balanceButton.setMaxWidth(100);
-        balanceButton.setStyle("-fx-background-color: white; -fx-text-fill: #2a3c4d");
-        grid.add(balanceButton, 0, 1);
+        Button transferButton = new Button("TRANSFER");
+        transferButton.setMaxWidth(100);
+        transferButton.setStyle("-fx-background-color: white; -fx-text-fill: #2a3c4d");
+        grid.add(transferButton, 0, 1);
 
         // Defining the exit button
         Button exitButton = new Button("EXIT");
@@ -203,12 +212,12 @@ public class ATM extends Application{
         exitButton.setStyle("-fx-background-color: #2a3c4d; -fx-text-fill: white");
         grid.add(exitButton, 1, 1);
         exitButton.setOnAction(event -> {
-            AlertBox.display("Signing Out", "Goodbye!", 3);
+            AlertBox.display("Signing Out", "Goodbye!", 2);
             logout();
         });
 
 
-        pane.getChildren().addAll(name, grid);
+        pane.getChildren().addAll(name, balanceBox, grid);
 
         // Creating a BorderPane container
         BorderPane border = new BorderPane();

@@ -76,6 +76,12 @@ public class Account {
      * @return boolean indicating success/failure
      */
     public boolean withdraw(double amount) {
+        if (balance < 0) {
+            return false;
+        }
+        balance -= amount;
+        String query = "UPDATE debitcard SET balance =" + balance + " WHERE accNum = " + accountNumber;
+
         return false;
     }
     /**
