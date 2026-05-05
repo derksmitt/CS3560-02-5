@@ -193,6 +193,19 @@ public class ATM extends Application{
         balanceButton.setStyle("-fx-background-color: white; -fx-text-fill: #2a3c4d");
         grid.add(balanceButton, 0, 1);
 
+        //balance logic
+        balanceButton.setOnAction(event -> {
+            if (currentAccount == null) {
+                AlertBox.display("Error", "No account logged in.");
+                return;
+            }
+
+            AlertBox.display (
+                "Balance",
+                "Your current balance is: $" + currentAccount.getBalance()
+            );
+        });
+
         // Defining the exit button
         Button exitButton = new Button("EXIT");
         exitButton.setMaxWidth(100);
