@@ -22,6 +22,8 @@ public class ATM extends Application{
     Stage login, accountMenu;
     static int width = 1000;
     static int height = 700;
+    
+    private Account currentAccount; 
     public static void main(String[] args) {
         // Start application
         launch(args);
@@ -118,8 +120,9 @@ public class ATM extends Application{
                     // Check if valid account is found
                     if (account != null) {
                         // Switch scenes and display alert
+                        currentAccount = account;
                         AlertBox.display("Login Successful", "Welcome " + account.getName());
-                        showMenu(account);
+                        showMenu(currentAccount);
                     } else {
                         // Display alert
                         AlertBox.display("Error!", "No Account exists.");
@@ -229,7 +232,7 @@ public class ATM extends Application{
             }
 
             TransferTransaction transfer =
-                    new TransferTransaction(account, toAccount, amount);
+                    new TransferTransaction(currentAccount, toAccount, amount);
 
             boolean success = transfer.execute();
 

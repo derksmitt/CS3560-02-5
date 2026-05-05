@@ -15,6 +15,13 @@ class WithdrawTransaction extends Transaction {
      * @Override
      */
     public boolean execute() {
-        return false;
+        if (account == null || amount <= 0) {
+            return false;
+        }
+
+        if (account.getBalance() < amount) {
+            return false;
+        }
+        return account.withdraw(amount);
     }
 }
