@@ -242,6 +242,12 @@ public class ATM extends Application{
         exitButton.setStyle("-fx-background-color: #2a3c4d; -fx-text-fill: white");
         grid.add(exitButton, 0, 2);
 
+        exitButton.setOnAction(event -> {
+            currentAccount = null;
+            Scene loginScene = new Scene(login(), width, height);
+            window.setScene(loginScene);
+        });
+
         //defining the transfer button
         Button transferButton = new Button("TRANSFER");
         transferButton.setMaxWidth(100);
@@ -300,6 +306,6 @@ public class ATM extends Application{
      * Logs out the current user
      */
     public void logout() {
-        // TODO: Reset session
+        currentAccount = null;
     }
 }
