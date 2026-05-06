@@ -12,9 +12,18 @@ class DepositTransaction extends Transaction {
     }
     /**
      * Executes deposit
-     * @Override
      */
+    @Override
     public boolean execute() {
-        return false;
+        if(account == null) {
+            return false;
+        }
+
+        if(amount <= 0) {
+            return false;
+        }
+
+        account.deposit(amount);
+        return true;
     }
 }

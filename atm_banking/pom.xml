@@ -69,7 +69,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>com.github.cs3560_02_5.Main</mainClass>
+                    <mainClass>com.example/com.github.cs3560_02_5.ATM</mainClass>
                 </configuration>
             </plugin>
 

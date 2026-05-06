@@ -187,6 +187,36 @@ public class ATM extends Application{
         depositButton.setStyle("-fx-background-color: white; -fx-text-fill: #2a3c4d");
         grid.add(depositButton, 1, 0);
 
+        //deposit logic
+        depositButton.setOnAction(event -> {
+            if(currentAccount == null) {
+                AlertBox.display("Error", "No account logged in.");
+                return;
+            }
+
+            TextInputDialog amountDialog = new TextInputDialog();
+            amountDialog.setHeaderText("Enter amount to deposit:");
+            String input = amountDialog.showAndWait().orElse("");
+
+            double amount;
+            try{
+                amount = Double.parseDouble(input);
+            } catch (Exception e) {
+                AlertBox.display("Error", "Invalid amount");
+                return;
+            }
+
+            DepositTransaction deposit = new DepositTransaction(currentAccount, amount);
+
+            boolean success = deposit.execute();
+
+            if(success) {
+                AlertBox.display("Success", "Deposit completed!\nNew balance: $" + currentAccount.getBalance());
+            } else {
+                AlertBox.display("Failed", "Deposit failed. Please enter a valid amount.");
+            }
+        });
+
         // Defining the balance button
         Button balanceButton = new Button("BALANCE");
         balanceButton.setMaxWidth(100);
