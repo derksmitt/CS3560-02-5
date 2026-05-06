@@ -81,7 +81,7 @@ public class Account {
     public boolean withdraw(double amount) {
         Connection conn = null;
         try { 
-        conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/cs3560?user=root&password=PASSWORD");
+        conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/cs3560?user=root&password=Ag0raPHOb13^");
         } catch (Exception ex) {
             // Error in connecting
             System.err.println("Failure to connect!\n" + ex);

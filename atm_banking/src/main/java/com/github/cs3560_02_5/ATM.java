@@ -179,15 +179,6 @@ public class ATM extends Application{
         grid.setVgap(50);
         grid.setHgap(50);
 
-        //display the balance of the account
-        Text balanceText = new Text("Balance: $" + String.format("%.2f", account.getBalance()));
-        balanceText.setFont(Font.font("Arial Narrow", FontWeight.THIN, 24));
-        balanceText.setFill(Color.rgb(42, 60, 77));
-        HBox balanceBox = new HBox(balanceText);
-        balanceBox.setAlignment(Pos.CENTER);
-        balanceBox.setPadding(new Insets(15));
-        balanceBox.setStyle("-fx-background-color: white; -fx-border-color: #2a3c4d; -fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;");
-
         // Defining the withdraw button
         Button withdrawButton = new Button("WITHDRAW");
         withdrawButton.setMaxWidth(100);
@@ -220,7 +211,7 @@ public class ATM extends Application{
         });
 
 
-        pane.getChildren().addAll(name, balanceBox, grid);
+        pane.getChildren().addAll(name, grid);
 
         // Creating a BorderPane container
         BorderPane border = new BorderPane();
