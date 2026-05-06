@@ -181,6 +181,37 @@ public class ATM extends Application{
         withdrawButton.setStyle("-fx-background-color: white; -fx-text-fill: #2a3c4d");
         grid.add(withdrawButton, 0, 0);
 
+        //withdraw logic
+        withdrawButton.setOnAction(event -> {
+            if (currentAccount == null) {
+                AlertBox.display("Error", "No account logged in.");
+            return;
+            }
+
+            TextInputDialog amountDialog = new TextInputDialog();
+            amountDialog.setHeaderText("Enter amount to withdraw:");
+            String input = amountDialog.showAndWait().orElse("");
+
+            double amount;
+
+            try {
+                amount = Double.parseDouble(input);
+            } catch (Exception e) {
+                AlertBox.display("Error", "Invalid amount");
+                return;
+            }
+
+            WithdrawTransaction withdraw = new WithdrawTransaction(currentAccount, amount);
+
+            boolean success = withdraw.execute();
+
+            if (success) {
+                AlertBox.display("Success", "Withdraw completed!\nNew balance: $" + currentAccount.getBalance());
+            } else {
+                AlertBox.display("Failed", "Withdraw failed. Check your balance or amount.");
+            }
+        });
+        
         // Defining the deposit button
         Button depositButton = new Button("DEPOSIT");
         depositButton.setMaxWidth(100);
